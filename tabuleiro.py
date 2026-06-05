@@ -1,4 +1,11 @@
 import pygame 
+
+pygame.init()
+largura=840
+altura=700
+screen=pygame.display.set_mode((largura,altura))
+pygame.display.set_caption("Jogo Maze Runner")
+
   screen.fill((255,255,255))
     pygame.draw.rect(screen, (0, 0, 0), (20, 50, 80, 80))#preto
     pygame.draw.rect(screen, (225,225,225), (100, 50, 80, 80))#branco
