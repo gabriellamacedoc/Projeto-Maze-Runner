@@ -91,7 +91,7 @@ while running:
                     jogadores=[jog1, jog2]
                 else:
                     jogadores=[jog2, jog1]
-                x=f'Jogador {jogadores[0]["cor"]} começa. Clique em a para continuar'
+                x=f'Jogador {jogadores[0]["cor"]} começa. Clique em A para continuar'
                 jogo_iniciado=True
 
             if eventos.key == pygame.K_a and jogo_iniciado and not fim:
