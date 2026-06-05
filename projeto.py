@@ -7,17 +7,13 @@ altura=700
 screen=pygame.display.set_mode((largura,altura))
 pygame.display.set_caption("Jogo Maze Runner")
 
-PLAYER_COLORS = {'verde': (0, 255, 170), 'rosa': (255, 20, 147)}
 
 font = pygame.font.Font(None, 30)
 
-def desenhar_token(surface, cor, pos_x, pos_y):
-    # Sombra
-    pygame.draw.circle(surface, (50, 50, 50), (pos_x + 27, pos_y + 27), 15)
-    # Corpo
-    pygame.draw.circle(surface, cor, (pos_x + 25, pos_y + 25), 15)
-    # Borda
-    pygame.draw.circle(surface, (255, 255, 255), (pos_x + 25, pos_y + 25), 15, 3)
+def desenhar_peao(tela, cor, pos_x, pos_y):
+    pygame.draw.circle(tela, (50, 50, 50), (pos_x + 27, pos_y + 27), 15)
+    pygame.draw.circle(tela, cor, (pos_x + 25, pos_y + 25), 15)
+    pygame.draw.circle(tela, (255, 255, 255), (pos_x + 25, pos_y + 25), 15, 3)
 
 colour = (255, 255, 255)
 font = pygame.font.Font(None, 30)
@@ -33,8 +29,8 @@ cores_tabuleiro = {0: "INICIO", 1: "BRANCO", 2: "VERMELHO", 3: "VERDE", 4: "BRAN
     20: "VERMELHO", 21: "VERDE", 22: "BRANCO", 23: "AZUL", 24: "VERMELHO", 25: "AMARELO", 26: "VERDE", 27: "FIM"}
 rgb={"VERMELHO": (225, 0, 0), "VERDE": (0, 225, 0), "PRETO": (0, 0, 0), "AZUL": (0, 0, 225), "AMARELO": (225, 225, 0), "BRANCO": (225, 225, 225), "INICIO": (0,0,0), "FIM": (0,0,0)}
 
-jog1={'vida':10, 'posicao':0, 'pos':posicoes[0], 'cor':'verde'}
-jog2={'vida':10, 'posicao':0, 'pos':posicoes[0], 'cor':'rosa'}
+jog1={'vida':10, 'posicao':0, 'pos':posicoes[0], 'cor':'verde', 'rgb':(0, 255, 170)}
+jog2={'vida':10, 'posicao':0, 'pos':posicoes[0], 'cor':'rosa', 'rgb':(255, 20, 147)}
 
 jogadores_presos=[0,0]
 jogadores=[jog1, jog2]
@@ -58,8 +54,8 @@ while running:
     screen.blit(font.render(a, True,(0,0,0)), (300, 325))
     screen.blit(font.render(b, True,(0,0,0)), (300, 350))
 
-    desenhar_token(screen, PLAYER_COLORS[jog1['cor']], jog1['pos'][0], jog1['pos'][1])
-    desenhar_token(screen, PLAYER_COLORS[jog2['cor']], jog2['pos'][0], jog2['pos'][1] + 32)
+    desenhar_peao(screen, jog1['rgb'], jog1['pos'][0], jog1['pos'][1])
+    desenhar_peao(screen, jog2['rgb'], jog2['pos'][0], jog2['pos'][1] + 32)
 
     for eventos in pygame.event.get():
         if eventos.type == pygame.QUIT:
