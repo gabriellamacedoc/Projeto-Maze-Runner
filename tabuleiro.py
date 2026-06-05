@@ -38,3 +38,7 @@ while running:
   pygame.draw.rect(screen, (225, 225, 0), (20, 450, 80, 80))  # amarelo
   pygame.draw.rect(screen, (0, 225, 0), (20, 370, 80, 80))  # vermelho
   pygame.draw.rect(screen, (0, 0, 0), (20, 290, 80, 80))  # preto
+  
+  pygame.display.update()
+  
+pygame.quit()
