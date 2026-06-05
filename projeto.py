@@ -19,9 +19,10 @@ posicoes = {0:  (20, 50),1:  (100, 50),2:  (180, 50),3:  (260, 50),4:  (340, 50)
 cores_tabuleiro = {0: "INICIO", 1: "BRANCO", 2: "VERMELHO", 3: "VERDE", 4: "BRANCO", 5: "AZUL", 6: "BRANCO", 7: "AMARELO", 8: "BRANCO", 9: "VERMELHO", 
     10: "VERDE", 11: "PRETO", 12: "AZUL", 13: "BRANCO", 14: "BRANCO", 15: "VERMELHO", 16: "VERDE", 17: "BRANCO", 18: "AMARELO", 19: "BRANCO", 
     20: "VERMELHO", 21: "VERDE", 22: "BRANCO", 23: "AZUL", 24: "VERMELHO", 25: "AMARELO", 26: "VERDE", 27: "FIM"}
+rgb={"VERMELHO": (225, 0, 0), "VERDE": (0, 225, 0), "PRETO": (0, 0, 0), "AZUL": (0, 0, 225), "AMARELO": (225, 225, 0), "BRANCO": (225, 225, 225), "INICIO": (0,0,0), "FIM": (0,0,0)}
 
 jog1={'vida':10, 'posicao':0, 'pos':posicoes[0], 'cor':'verde'}
-jog2={'vida':10, 'posicao':0, 'pos':posicoes[0], 'cor':'roxo'}
+jog2={'vida':10, 'posicao':0, 'pos':posicoes[0], 'cor':'rosa'}
 
 jogadores_presos=[0,0]
 jogadores=[jog1, jog2]
@@ -34,34 +35,8 @@ running=True
 
 while running:
     screen.fill((255,255,255))
-    pygame.draw.rect(screen, (0, 0, 0), (20, 50, 80, 80))#preto
-    pygame.draw.rect(screen, (225,225,225), (100, 50, 80, 80))#branco
-    pygame.draw.rect(screen, (225, 0, 0), (180, 50, 80, 80))#vermelho
-    pygame.draw.rect(screen, (0, 225, 0), (260, 50, 80, 80))#verde
-    pygame.draw.rect(screen, (225, 225, 225), (340, 50, 80, 80))#branco
-    pygame.draw.rect(screen, (0, 0, 225), (420, 50, 80, 80))  #azul
-    pygame.draw.rect(screen, (225, 225, 225), (500, 50, 80, 80))  #branco
-    pygame.draw.rect(screen, (225, 225, 0), (580, 50, 80, 80))  #amarelo
-    pygame.draw.rect(screen, (225, 225, 225), (660, 50, 80, 80))  # branco
-    pygame.draw.rect(screen, (225, 0, 0), (740, 50, 80, 80))  #vermelho
-    pygame.draw.rect(screen, (0, 225, 0), (740, 130, 80, 80))  # verde
-    pygame.draw.rect(screen, (0, 0, 0), (740, 210, 80, 80))  # preto
-    pygame.draw.rect(screen, (0, 0, 225), (740, 290, 80, 80))  # azul
-    pygame.draw.rect(screen, (225, 225, 225), (740, 370, 80, 80))  # branco
-    pygame.draw.rect(screen, (225, 225, 225), (740, 450, 80, 80))  # branco
-    pygame.draw.rect(screen, (225, 0, 0), (740, 530, 80, 80))  # vermelho
-    pygame.draw.rect(screen, (0, 225, 0), (660, 530, 80, 80))  # verde
-    pygame.draw.rect(screen, (225, 225, 225), (580, 530, 80, 80))  # branco
-    pygame.draw.rect(screen, (225, 225, 0), (500, 530, 80, 80))  # amarelo
-    pygame.draw.rect(screen, (225, 225, 225), (420, 530, 80, 80))  #branco
-    pygame.draw.rect(screen, (225, 0, 0), (340, 530, 80, 80))  # vermelho
-    pygame.draw.rect(screen, (0, 225, 0), (260, 530, 80, 80))  # verde
-    pygame.draw.rect(screen, (225, 225, 225), (180, 530, 80, 80))  # branco
-    pygame.draw.rect(screen, (0, 0, 225), (100, 530, 80, 80))  # azul
-    pygame.draw.rect(screen, (225, 0, 0), (20, 530, 80, 80))  # vermelho
-    pygame.draw.rect(screen, (225, 225, 0), (20, 450, 80, 80))  # amarelo
-    pygame.draw.rect(screen, (0, 225, 0), (20, 370, 80, 80))  # vermelho
-    pygame.draw.rect(screen, (0, 0, 0), (20, 290, 80, 80))  # preto
+    for p, cord in posicoes.items():
+        pygame.draw.rect(screen, rgb[cores_tabuleiro[p]], (cord[0], cord[1], 80, 80))
 
     screen.blit(font.render('Início', True,colour), (20, 50))
     screen.blit(font.render('Fim', True,colour), (20,290))
