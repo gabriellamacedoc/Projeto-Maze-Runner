@@ -10,6 +10,11 @@ running=True
 
 while running:
   screen.fill((255,255,255))
+  
+  for eventos in pygame.event.get():
+        if evento.type == pygame.QUIT:
+            running = False
+          
   pygame.draw.rect(screen, (0, 0, 0), (20, 50, 80, 80))#preto
   pygame.draw.rect(screen, (225,225,225), (100, 50, 80, 80))#branco
   pygame.draw.rect(screen, (225, 0, 0), (180, 50, 80, 80))#vermelho
