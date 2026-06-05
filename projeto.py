@@ -71,8 +71,8 @@ while running:
     screen.blit(font.render(a, True,(0,0,0)), (300, 325))
     screen.blit(font.render(b, True,(0,0,0)), (300, 350))
 
-    pygame.draw.circle(screen, (0,125,125), (jog1['pos'][0]+25,jog1['pos'][1]+25), 15)
-    pygame.draw.circle(screen, (125,0,125), (jog2['pos'][0]+25,jog2['pos'][1]+60), 15)
+    pygame.draw.circle(screen, (0,255,170), (jog1['pos'][0]+25,jog1['pos'][1]+25), 15)
+    pygame.draw.circle(screen, (255,20,147), (jog2['pos'][0]+25,jog2['pos'][1]+60), 15)
 
     for eventos in pygame.event.get():
         if eventos.type == pygame.QUIT:
