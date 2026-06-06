@@ -59,7 +59,7 @@ while running:
 
     screen.blit(font.render('Início', True, colour), (20, 55))
     screen.blit(font.render('Fim', True, colour), (22,295))
-    screen.blit(font.render(x, True, (0,0,0)), (20,10))
+    screen.blit(font.render(x, True, (0,0,0)), (5,10))
     screen.blit(font.render(a, True, (255,103,0)), (300, 325))
     screen.blit(font.render(b, True, (255,103,0)), (300, 350))
 
@@ -129,7 +129,7 @@ while running:
 
                 if jogadores[turno]['posicao'] >= 27:
                     jogadores[turno]['posicao'] = 27
-                    x=f'Jogador {jogadores[turno]["cor"]} venceu! Pressione ESC para sair ou R para reiniciar.' 
+                    x=f'Jogador {jogadores[turno]["cor"]} venceu! Pressione: ESC para sair / R para reiniciar.' 
                     fim=True   
                 jogadores[turno]['pos'] = posicoes[jogadores[turno]['posicao']]
 
@@ -138,7 +138,7 @@ while running:
                     jogadores[turno]['vida'] -= 3
                     if jogadores[turno]['vida'] <= 0:
                         jogadores[turno]['vida'] = 0
-                        x=f'Jogador {jogadores[turno]["cor"]} perdeu todas as vidas! Pressione ESC para sair ou R para reiniciar.'
+                        x=f'Jogador {jogadores[turno]["cor"]} perdeu todas as vidas! Pressione: ESC para sair / R para reiniciar.'
                         fim=True
                     else:
                         x=f'Jogador {jogadores[turno]["cor"]} caiu no vermelho e perdeu 3 vidas!'
