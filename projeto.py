@@ -5,7 +5,7 @@ import os
 pygame.init()
 pygame.font.init()
 
-largura=840
+largura=870
 altura=700
 screen=pygame.display.set_mode((largura,altura))
 pygame.display.set_caption("Jogo Maze Runner")
@@ -13,7 +13,7 @@ pygame.display.set_caption("Jogo Maze Runner")
 
 NOME_FONTE = "font/PressStart2P-Regular.ttf"
 if os.path.exists(NOME_FONTE):
-    font = pygame.font.Font(NOME_FONTE, 12)
+    font = pygame.font.Font(NOME_FONTE, 13)
     font_vida = pygame.font.Font(NOME_FONTE, 15)
     font_dado = pygame.font.Font(NOME_FONTE, 18)
 else:
