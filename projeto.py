@@ -11,8 +11,7 @@ screen=pygame.display.set_mode((largura,altura))
 pygame.display.set_caption("Jogo Maze Runner")
 
 
-NOME_FONTE = "/Users/gabriella/Downloads/Press_Start_2P/PressStart2P-Regular.ttf"
-
+NOME_FONTE = "font/PressStart2P-Regular.ttf"
 if os.path.exists(NOME_FONTE):
     font = pygame.font.Font(NOME_FONTE, 13)
     font_prow = pygame.font.Font(NOME_FONTE, 12)
@@ -41,8 +40,8 @@ cores_tabuleiro = {0: "INICIO", 1: "BRANCO", 2: "VERMELHO", 3: "VERDE", 4: "BRAN
     20: "VERMELHO", 21: "VERDE", 22: "BRANCO", 23: "AZUL", 24: "VERMELHO", 25: "AMARELO", 26: "VERDE", 27: "FIM"}
 rgb={"VERMELHO": (225, 0, 0), "VERDE": (0, 225, 0), "PRETO": (0, 0, 0), "AZUL": (0, 0, 225), "AMARELO": (225, 225, 0), "BRANCO": (225, 225, 225), "INICIO": (0,0,0), "FIM": (0,0,0)}
 
-jog1={'vida':10, 'posicao':0, 'pos':posicoes[0], 'cor':'VERDE', 'rgb':(0, 255, 170)}
-jog2={'vida':10, 'posicao':0, 'pos':posicoes[0], 'cor':'ROSA', 'rgb':(255, 20, 147)}
+jog1={'vida':10, 'posicao':0, 'pos':posicoes[0], 'cor':'Verde', 'rgb':(0, 255, 170)}
+jog2={'vida':10, 'posicao':0, 'pos':posicoes[0], 'cor':'Rosa', 'rgb':(255, 20, 147)}
 
 jogadores_presos=[0,0]
 jogadores=[jog1, jog2]
@@ -58,8 +57,8 @@ while running:
     for p, cord in posicoes.items():
         pygame.draw.rect(screen, rgb[cores_tabuleiro[p]], (cord[0], cord[1], 80, 80))
 
-    screen.blit(font.render('Início', True, colour), (20, 50))
-    screen.blit(font.render('Fim', True, colour), (20,290))
+    screen.blit(font.render('Início', True, colour), (20, 55))
+    screen.blit(font.render('Fim', True, colour), (22,295))
     screen.blit(font.render(x, True, (0,0,0)), (20,10))
     screen.blit(font.render(a, True, (255,103,0)), (300, 325))
     screen.blit(font.render(b, True, (255,103,0)), (300, 350))
@@ -67,8 +66,8 @@ while running:
     pygame.draw.rect(screen, (57, 62, 70), (0, 620, largura, 80))
     pygame.draw.line(screen, (255, 211, 105), (0, 620), (largura, 620), 4)
 
-    texto_vida_jog1 = font_prow.render(f'Vida Jogador {jog1["cor"].upper()}: {jog1["vida"]}', True, (255, 103, 0))
-    texto_vida_jog2 = font_prow.render(f'Vida Jogador {jog2["cor"].upper()}: {jog2["vida"]}', True, (255, 103, 0))
+    texto_vida_jog1 = font_prow.render(f'Vida Jogador {jog1["cor"]}: {jog1["vida"]}', True, (255, 103, 0))
+    texto_vida_jog2 = font_prow.render(f'Vida Jogador {jog2["cor"]}: {jog2["vida"]}', True, (255, 103, 0))
     texto_dado = font_titulo.render(f'DADO: {y}', True, (255, 89, 0))
 
 
