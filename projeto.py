@@ -13,14 +13,14 @@ pygame.display.set_caption("Jogo Maze Runner")
 
 NOME_FONTE = "font/PressStart2P-Regular.ttf"
 if os.path.exists(NOME_FONTE):
-    font = pygame.font.Font(NOME_FONTE, 13)
-    font_prow = pygame.font.Font(NOME_FONTE, 12)
-    font_titulo = pygame.font.Font(NOME_FONTE, 18)
+    font = pygame.font.Font(NOME_FONTE, 12)
+    font_vida = pygame.font.Font(NOME_FONTE, 15)
+    font_dado = pygame.font.Font(NOME_FONTE, 18)
 else:
     print(f"Aviso: Arquivo '{NOME_FONTE}' não encontrado. Usando fonte padrão do sistema.")
     font = pygame.font.Font(None, 30)
-    font_prow = pygame.font.Font(None, 26)
-    font_titulo = pygame.font.Font(None, 34)
+    font_vida = pygame.font.Font(None, 30)
+    font_dado = pygame.font.Font(None, 35)
 
 def desenhar_peao(tela, cor, pos_x, pos_y):
     pygame.draw.circle(tela, (50, 50, 50), (pos_x + 27, pos_y + 27), 15)
@@ -59,16 +59,16 @@ while running:
 
     screen.blit(font.render('Início', True, colour), (20, 55))
     screen.blit(font.render('Fim', True, colour), (22,295))
-    screen.blit(font.render(x, True, (0,0,0)), (5,10))
-    screen.blit(font.render(a, True, (255,103,0)), (300, 325))
-    screen.blit(font.render(b, True, (255,103,0)), (300, 350))
+    screen.blit(font.render(x, True, (0,0,0)), (5,15))
+    screen.blit(font_vida.render(a, True, (255,103,0)), (250, 300))
+    screen.blit(font_vida.render(b, True, (255,103,0)), (250, 350))
 
     pygame.draw.rect(screen, (57, 62, 70), (0, 620, largura, 80))
     pygame.draw.line(screen, (255, 211, 105), (0, 620), (largura, 620), 4)
 
-    texto_vida_jog1 = font_prow.render(f'Vida Jogador {jog1["cor"]}: {jog1["vida"]}', True, (255, 103, 0))
-    texto_vida_jog2 = font_prow.render(f'Vida Jogador {jog2["cor"]}: {jog2["vida"]}', True, (255, 103, 0))
-    texto_dado = font_titulo.render(f'DADO: {y}', True, (255, 89, 0))
+    texto_vida_jog1 = font_vida.render(f'Vida Jogador {jog1["cor"]}: {jog1["vida"]}', True, (255, 103, 0))
+    texto_vida_jog2 = font_vida.render(f'Vida Jogador {jog2["cor"]}: {jog2["vida"]}', True, (255, 103, 0))
+    texto_dado = font_dado.render(f'DADO: {y}', True, (255, 89, 0))
 
 
     screen.blit(texto_vida_jog1, (30, 635))
@@ -106,8 +106,8 @@ while running:
                 while s1 == s2:
                     s1 = random.randint(1,6) + random.randint(1,6)
                     s2 = random.randint(1,6) + random.randint(1,6)
-                a=f'Jogador {jog1["cor"]} tirou {s1}.'
-                b=f'Jogador {jog2["cor"]} tirou {s2}.'    
+                a=f'Jogador {jog1["cor"]} tirou {s1}'
+                b=f'Jogador {jog2["cor"]} tirou {s2}'    
                 if s1 > s2:
                     jogadores=[jog1, jog2]
                 else:
