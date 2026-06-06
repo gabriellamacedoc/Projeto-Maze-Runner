@@ -60,15 +60,15 @@ while running:
     screen.blit(font.render('Início', True, colour), (20, 55))
     screen.blit(font.render('Fim', True, colour), (22,295))
     screen.blit(font.render(x, True, (0,0,0)), (5,15))
-    screen.blit(font_vida.render(a, True, (255,103,0)), (250, 300))
-    screen.blit(font_vida.render(b, True, (255,103,0)), (250, 350))
+    screen.blit(font_vida.render(a, True, (0,0,0)), (250, 300))
+    screen.blit(font_vida.render(b, True, (0,0,0)), (250, 350))
 
     pygame.draw.rect(screen, (57, 62, 70), (0, 620, largura, 80))
     pygame.draw.line(screen, (255, 211, 105), (0, 620), (largura, 620), 4)
 
-    texto_vida_jog1 = font_vida.render(f'Vida Jogador {jog1["cor"]}: {jog1["vida"]}', True, (255, 103, 0))
-    texto_vida_jog2 = font_vida.render(f'Vida Jogador {jog2["cor"]}: {jog2["vida"]}', True, (255, 103, 0))
-    texto_dado = font_dado.render(f'DADO: {y}', True, (255, 89, 0))
+    texto_vida_jog1 = font_vida.render(f'Vida Jogador {jog1["cor"]}: {jog1["vida"]}', True, (255, 211, 105))
+    texto_vida_jog2 = font_vida.render(f'Vida Jogador {jog2["cor"]}: {jog2["vida"]}', True, (255, 211, 105))
+    texto_dado = font_dado.render(f'DADO: {y}', True, (255, 211, 105))
 
 
     screen.blit(texto_vida_jog1, (30, 635))
