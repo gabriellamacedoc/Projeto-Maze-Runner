@@ -1,14 +1,27 @@
 import pygame
 import random
+import os
 
 pygame.init()
+pygame.font.init()
+
 largura=840
 altura=700
 screen=pygame.display.set_mode((largura,altura))
 pygame.display.set_caption("Jogo Maze Runner")
 
 
-font = pygame.font.Font(None, 30)
+NOME_FONTE = "/Users/gabriella/Downloads/Press_Start_2P/PressStart2P-Regular.ttf"
+
+if os.path.exists(NOME_FONTE):
+    font = pygame.font.Font(NOME_FONTE, 13)
+    font_prow = pygame.font.Font(NOME_FONTE, 12)
+    font_titulo = pygame.font.Font(NOME_FONTE, 18)
+else:
+    print(f"Aviso: Arquivo '{NOME_FONTE}' não encontrado. Usando fonte padrão do sistema.")
+    font = pygame.font.Font(None, 30)
+    font_prow = pygame.font.Font(None, 26)
+    font_titulo = pygame.font.Font(None, 34)
 
 def desenhar_peao(tela, cor, pos_x, pos_y):
     pygame.draw.circle(tela, (50, 50, 50), (pos_x + 27, pos_y + 27), 15)
@@ -16,8 +29,7 @@ def desenhar_peao(tela, cor, pos_x, pos_y):
     pygame.draw.circle(tela, (255, 255, 255), (pos_x + 25, pos_y + 25), 15, 3)
 
 colour = (255, 255, 255)
-font = pygame.font.Font(None, 30)
-x='Pressione espaço'
+x='Pressione espaço para jogar'
 a=''
 b=''
 
@@ -29,8 +41,8 @@ cores_tabuleiro = {0: "INICIO", 1: "BRANCO", 2: "VERMELHO", 3: "VERDE", 4: "BRAN
     20: "VERMELHO", 21: "VERDE", 22: "BRANCO", 23: "AZUL", 24: "VERMELHO", 25: "AMARELO", 26: "VERDE", 27: "FIM"}
 rgb={"VERMELHO": (225, 0, 0), "VERDE": (0, 225, 0), "PRETO": (0, 0, 0), "AZUL": (0, 0, 225), "AMARELO": (225, 225, 0), "BRANCO": (225, 225, 225), "INICIO": (0,0,0), "FIM": (0,0,0)}
 
-jog1={'vida':10, 'posicao':0, 'pos':posicoes[0], 'cor':'verde', 'rgb':(0, 255, 170)}
-jog2={'vida':10, 'posicao':0, 'pos':posicoes[0], 'cor':'rosa', 'rgb':(255, 20, 147)}
+jog1={'vida':10, 'posicao':0, 'pos':posicoes[0], 'cor':'VERDE', 'rgb':(0, 255, 170)}
+jog2={'vida':10, 'posicao':0, 'pos':posicoes[0], 'cor':'ROSA', 'rgb':(255, 20, 147)}
 
 jogadores_presos=[0,0]
 jogadores=[jog1, jog2]
@@ -46,14 +58,24 @@ while running:
     for p, cord in posicoes.items():
         pygame.draw.rect(screen, rgb[cores_tabuleiro[p]], (cord[0], cord[1], 80, 80))
 
-    screen.blit(font.render('Início', True,colour), (20, 50))
-    screen.blit(font.render('Fim', True,colour), (20,290))
-    screen.blit(font.render(x, True,(0,0,0)), (20,10))
-    screen.blit(font.render(f'vida jogador {jog1["cor"]}: {jog1["vida"]} | vida jogador {jog2["cor"]}: {jog2["vida"]}', True,(0,0,0)), (20,650))
-    screen.blit(font.render(f'Dado: {y}', True,(0,0,0)), (720,650))
-    screen.blit(font.render(a, True,(0,0,0)), (300, 325))
-    screen.blit(font.render(b, True,(0,0,0)), (300, 350))
+    screen.blit(font.render('Início', True, colour), (20, 50))
+    screen.blit(font.render('Fim', True, colour), (20,290))
+    screen.blit(font.render(x, True, (0,0,0)), (20,10))
+    screen.blit(font.render(a, True, (255,103,0)), (300, 325))
+    screen.blit(font.render(b, True, (255,103,0)), (300, 350))
 
+    pygame.draw.rect(screen, (57, 62, 70), (0, 620, largura, 80))
+    pygame.draw.line(screen, (255, 211, 105), (0, 620), (largura, 620), 4)
+
+    texto_vida_jog1 = font_prow.render(f'Vida Jogador {jog1["cor"].upper()}: {jog1["vida"]}', True, (255, 103, 0))
+    texto_vida_jog2 = font_prow.render(f'Vida Jogador {jog2["cor"].upper()}: {jog2["vida"]}', True, (255, 103, 0))
+    texto_dado = font_titulo.render(f'DADO: {y}', True, (255, 89, 0))
+
+
+    screen.blit(texto_vida_jog1, (30, 635))
+    screen.blit(texto_vida_jog2, (30, 665))
+    screen.blit(texto_dado, (640, 645))
+   
     desenhar_peao(screen, jog1['rgb'], jog1['pos'][0], jog1['pos'][1])
     desenhar_peao(screen, jog2['rgb'], jog2['pos'][0], jog2['pos'][1] + 32)
 
