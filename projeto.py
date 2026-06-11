@@ -70,8 +70,8 @@ while running:
     screen.blit(font.render('Início', True, (255,255,255)), (20, 55))
     screen.blit(font.render('Fim', True, (255,255,255)), (22,295))
     screen.blit(font.render(x, True, (0,0,0)), (5,15))
-    screen.blit(font_vida.render(a, True, (0,0,0)), (250, 300))
-    screen.blit(font_vida.render(b, True, (0,0,0)), (250, 350))
+    screen.blit(font_vida.render(a, True, (0,0,0)), (230, 300))
+    screen.blit(font_vida.render(b, True, (0,0,0)), (230, 350))
 
     #Linha e retângulo desenhados em baixo do tabuleiro para fins estéticos
     pygame.draw.rect(screen, (57, 62, 70), (0, 620, largura, 80))
@@ -151,7 +151,9 @@ while running:
                     jogadores[turno]['vida'] -= 3
                     if jogadores[turno]['vida'] <= 0:
                         jogadores[turno]['vida'] = 0
-                        x=f'Jogador {jogadores[turno]["cor"]} perdeu todas as vidas! Pressione: ESC para sair / R para reiniciar.'
+                        x=f'Jogador {jogadores[turno]["cor"]} perdeu todas as vidas!.'
+                        a='ESC para sair'
+                        b='R para reiniciar'
                         fim=True
                     else:
                         x=f'Jogador {jogadores[turno]["cor"]} caiu no vermelho e perdeu 3 vidas!'
