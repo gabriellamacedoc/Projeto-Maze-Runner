@@ -1,37 +1,42 @@
 import pygame
-import random
+import random 
 import os
 
-pygame.init()
+#iniciando o pygame e a fonte
+pygame.init() 
 pygame.font.init()
 
 largura=870
 altura=700
-screen=pygame.display.set_mode((largura,altura))
+#Criando a tela do jogo com as variáveis acima e criando a variável screen para manipulá-la
+screen=pygame.display.set_mode((largura,altura)) 
 pygame.display.set_caption("Jogo Maze Runner")
 
-
+#Verificando se é possível acessar o arquivo da fonte, senão usa a fonte padrão do pygame
 NOME_FONTE = "font/PressStart2P-Regular.ttf"
 if os.path.exists(NOME_FONTE):
-    font = pygame.font.Font(NOME_FONTE, 13)
-    font_vida = pygame.font.Font(NOME_FONTE, 15)
-    font_dado = pygame.font.Font(NOME_FONTE, 18)
+    font = pygame.font.Font(NOME_FONTE, 13) #Configuração do texto acima do tauleiro
+    font_vida = pygame.font.Font(NOME_FONTE, 15) #Configuração do texto da vida dos jogadores
+    font_dado = pygame.font.Font(NOME_FONTE, 18) #Configuração do texto do dado
 else:
     print(f"Aviso: Arquivo '{NOME_FONTE}' não encontrado. Usando fonte padrão do sistema.")
     font = pygame.font.Font(None, 30)
     font_vida = pygame.font.Font(None, 30)
     font_dado = pygame.font.Font(None, 35)
 
+#Função para desenhar os jogadores com sombra cinza, cor do jogador e borda branca
 def desenhar_peao(tela, cor, pos_x, pos_y):
-    pygame.draw.circle(tela, (50, 50, 50), (pos_x + 27, pos_y + 27), 15)
-    pygame.draw.circle(tela, cor, (pos_x + 25, pos_y + 25), 15)
-    pygame.draw.circle(tela, (255, 255, 255), (pos_x + 25, pos_y + 25), 15, 3)
+    pygame.draw.circle(tela, (50, 50, 50), (pos_x + 27, pos_y + 27), 15) #Sombra cinza
+    pygame.draw.circle(tela, cor, (pos_x + 25, pos_y + 25), 15) #Cor do jogador
+    pygame.draw.circle(tela, (255, 255, 255), (pos_x + 25, pos_y + 25), 15, 3) #Borda branca
 
-colour = (255, 255, 255)
+#Variáveis de texto que são modificas ao longo do jogo 
 x='Pressione espaço para jogar'
 a=''
 b=''
 
+#Dicionários que armazenam as posiçoes do taboleiro, cores equivalentes a cada posição e rgb equivalente a cada cor
+#Utilizamos o tabuleiro inicial que fizemos (armazendo na pasta "tabuleiro") para obter as posições e cores
 posicoes = {0:  (20, 50),1:  (100, 50),2:  (180, 50),3:  (260, 50),4:  (340, 50),5:  (420, 50),6:  (500, 50),7:  (580, 50),8:  (660, 50),
             9:  (740, 50),10: (740, 130),11: (740, 210),12: (740, 290),13: (740, 370),14: (740, 450),15: (740, 530),16: (660, 530),17: (580, 530),
             18: (500, 530),19: (420, 530),20: (340, 530),21: (260, 530),22: (180, 530),23: (100, 530),24: (20, 530),25: (20, 450),26: (20, 370),27: (20, 290)}
@@ -40,13 +45,15 @@ cores_tabuleiro = {0: "INICIO", 1: "BRANCO", 2: "VERMELHO", 3: "VERDE", 4: "BRAN
     20: "VERMELHO", 21: "VERDE", 22: "BRANCO", 23: "AZUL", 24: "VERMELHO", 25: "AMARELO", 26: "VERDE", 27: "FIM"}
 rgb={"VERMELHO": (225, 0, 0), "VERDE": (0, 225, 0), "PRETO": (0, 0, 0), "AZUL": (0, 0, 225), "AMARELO": (225, 225, 0), "BRANCO": (225, 225, 225), "INICIO": (0,0,0), "FIM": (0,0,0)}
 
+#Dicioários que guardam informações importantes sobre os jogadores
+#As chaves "cor" e "rgd" sã imutávies, usadas ,principalmente, pra se referir ao jogador no texto e para desnhá-lo no tabuleiro, respectivamente
 jog1={'vida':10, 'posicao':0, 'pos':posicoes[0], 'cor':'Verde', 'rgb':(0, 255, 170)}
 jog2={'vida':10, 'posicao':0, 'pos':posicoes[0], 'cor':'Rosa', 'rgb':(255, 20, 147)}
 
-jogadores_presos=[0,0]
-jogadores=[jog1, jog2]
-turno=0
-y=0
+jogadores_presos=[0,0] #Lista que guarda a informção se um jogogador está preso
+jogadores=[jog1, jog2] #Lista que determina a ordem dos jogadores, modificada no início do jogo
+turno=0 #Variável que garante que jogue um jogador por vez, varia entre 0 e 1
+y=0 #Variável que representa o dado
 
 jogo_iniciado=False
 fim=False
@@ -57,8 +64,8 @@ while running:
     for p, cord in posicoes.items():
         pygame.draw.rect(screen, rgb[cores_tabuleiro[p]], (cord[0], cord[1], 80, 80))
 
-    screen.blit(font.render('Início', True, colour), (20, 55))
-    screen.blit(font.render('Fim', True, colour), (22,295))
+    screen.blit(font.render('Início', True, (255,255,255)), (20, 55))
+    screen.blit(font.render('Fim', True, (255,255,255)), (22,295))
     screen.blit(font.render(x, True, (0,0,0)), (5,15))
     screen.blit(font_vida.render(a, True, (0,0,0)), (250, 300))
     screen.blit(font_vida.render(b, True, (0,0,0)), (250, 350))
