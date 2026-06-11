@@ -144,7 +144,9 @@ while running:
                     fim=True   
                 jogadores[turno]['pos'] = posicoes[jogadores[turno]['posicao']]
 
+                #Verificacao das cores do tabuleiro
 
+                #Condicao vermelho: perde 3 vidas. E se chegar a 0 vidas ou menos, o jogador perde tudo e o jogo acaba.
                 if cores_tabuleiro[jogadores[turno]['posicao']] == 'VERMELHO':
                     jogadores[turno]['vida'] -= 3
                     if jogadores[turno]['vida'] <= 0:
@@ -154,6 +156,7 @@ while running:
                     else:
                         x=f'Jogador {jogadores[turno]["cor"]} caiu no vermelho e perdeu 3 vidas!'
                 
+                #Condicao verde: ganha 1 vida. Não permite que a vida ultrapasse o limite máximo 10.
                 elif cores_tabuleiro[jogadores[turno]['posicao']] == 'VERDE':
                     jogadores[turno]['vida'] += 1
                     if jogadores[turno]['vida'] >= 10:
@@ -161,29 +164,35 @@ while running:
                         x=f'Jogador {jogadores[turno]["cor"]} está com vida máxima!'
                     else:
                         x=f'Jogador {jogadores[turno]["cor"]} caiu no verde e ganhou 1 vida!'
-                
+
+                #Condicao preto: reinicia o trajeto do jogador, voltando para a posicao 0.
                 elif cores_tabuleiro[jogadores[turno]['posicao']] == 'PRETO':
                     jogadores[turno]['posicao'] = 0
                     jogadores[turno]['pos'] = posicoes[0]
                     x=f'Jogador {jogadores[turno]["cor"]} caiu no preto e voltou para o início!'
 
+                #Condicao azul: o jogador ganha o direito de jogar novamente. O jogo inverte a passagem de turno que acontece no fim do loop.
                 elif cores_tabuleiro[jogadores[turno]['posicao']] == 'AZUL':
                     x=f'Jogador {jogadores[turno]["cor"]} caiu no azul e ganhou uma jogada extra!'
                     if turno == 0:
                         turno = 1
                     else:
                         turno = 0
-                
+
+                #Condicao amarelo: o jogador fica uma rodada sem jogar. Ativa a restricao na lista 'jogador_presos'.
                 elif cores_tabuleiro[jogadores[turno]['posicao']] == 'AMARELO':
                     jogadores_presos[turno] = 1
                     x=f'Jogador {jogadores[turno]["cor"]} caiu no amarelo e ficou preso por um turno!'
-
+                    
+                #Condicao branco: nada afeta o jogador.
                 elif cores_tabuleiro[jogadores[turno]['posicao']] == 'BRANCO':
                     x=f'Jogador {jogadores[turno]["cor"]} caiu no branco e não acontece nada!'
 
+                #Passa a vez para o próximo jogador, se o jogo ainda não tiver acabado.
                 if not fim:
                     turno = (turno + 1) % 2
 
+            #Reinicia o jogo (reset de posicoes, vidas, textos e variáveis de controle) caso o jogo tenha acabado e o usuário aperte "R".
             if eventos.key == pygame.K_r  and  fim and jogo_iniciado:
                     jog1['pos'] = posicoes[0]
                     jog2['pos'] = posicoes[0]
@@ -197,6 +206,7 @@ while running:
                     jogo_iniciado=False
                     fim=False
 
+            #Fecha o jogo se Esc for apertado e o jogo estiver finalizado.
             if eventos.key == pygame.K_ESCAPE and fim and jogo_iniciado:
                 running=False
 
