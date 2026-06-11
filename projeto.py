@@ -63,7 +63,7 @@ running=True
 #Loop principal do jogo
 while running:
     screen.fill((255,255,255))
-    #Loop para desenhar o tabuleiro coma as informações dos dicionários
+    #Loop para desenhar o tabuleiro com as informações dos dicionários
     for p, cord in posicoes.items():
         pygame.draw.rect(screen, rgb[cores_tabuleiro[p]], (cord[0], cord[1], 80, 80))
 
@@ -87,7 +87,7 @@ while running:
     screen.blit(texto_vida_jog2, (30, 665))
     screen.blit(texto_dado, (640, 645))
    
-    #Chamando a função para desenhar os jogadores com as informções dos dicionários
+    #Chamando a função para desenhar os jogadores com as informações dos dicionários
     desenhar_peao(screen, jog1['rgb'], jog1['pos'][0], jog1['pos'][1])
     desenhar_peao(screen, jog2['rgb'], jog2['pos'][0], jog2['pos'][1] + 32)
 
@@ -102,7 +102,7 @@ while running:
             
             #Se clicar no espaço e o jogo não tiver começado nem terminado
             if eventos.key == pygame.K_SPACE and not jogo_iniciado and not fim:
-                #Sorteia quem começa primeio, garantido que a soma dos dois sorteados não seja igual
+                #Sorteia quem começa primeiro, garantido que a soma dos dois sorteados não seja igual
                 s1 = random.randint(1,6) + random.randint(1,6)
                 s2 = random.randint(1,6) + random.randint(1,6) 
                 while s1 == s2:
