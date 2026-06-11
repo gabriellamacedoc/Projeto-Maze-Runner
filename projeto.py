@@ -15,7 +15,7 @@ pygame.display.set_caption("Jogo Maze Runner")
 #Verificando se é possível acessar o arquivo da fonte, senão usa a fonte padrão do pygame
 NOME_FONTE = "font/PressStart2P-Regular.ttf"
 if os.path.exists(NOME_FONTE):
-    font = pygame.font.Font(NOME_FONTE, 13) #Configuração do texto acima do tauleiro
+    font = pygame.font.Font(NOME_FONTE, 13) #Configuração do texto acima do tabuleiro
     font_vida = pygame.font.Font(NOME_FONTE, 15) #Configuração do texto da vida dos jogadores
     font_dado = pygame.font.Font(NOME_FONTE, 18) #Configuração do texto do dado
 else:
@@ -30,13 +30,13 @@ def desenhar_peao(tela, cor, pos_x, pos_y):
     pygame.draw.circle(tela, cor, (pos_x + 25, pos_y + 25), 15) #Cor do jogador
     pygame.draw.circle(tela, (255, 255, 255), (pos_x + 25, pos_y + 25), 15, 3) #Borda branca
 
-#Variáveis de texto que são modificas ao longo do jogo 
+#Variáveis de texto que são modificadas ao longo do jogo 
 x='Pressione espaço para jogar'
 a=''
 b=''
 
-#Dicionários que armazenam as posiçoes do taboleiro, cores equivalentes a cada posição e rgb equivalente a cada cor
-#Utilizamos o tabuleiro inicial que fizemos (armazendo na pasta "tabuleiro") para obter as posições e cores
+#Dicionários que armazenam as posiçoes do tabuleiro, cores equivalentes a cada posição e rgb equivalente a cada cor
+#Utilizamos o tabuleiro inicial que fizemos (armazenado na pasta "tabuleiro") para obter as posições e cores
 posicoes = {0:  (20, 50),1:  (100, 50),2:  (180, 50),3:  (260, 50),4:  (340, 50),5:  (420, 50),6:  (500, 50),7:  (580, 50),8:  (660, 50),
             9:  (740, 50),10: (740, 130),11: (740, 210),12: (740, 290),13: (740, 370),14: (740, 450),15: (740, 530),16: (660, 530),17: (580, 530),
             18: (500, 530),19: (420, 530),20: (340, 530),21: (260, 530),22: (180, 530),23: (100, 530),24: (20, 530),25: (20, 450),26: (20, 370),27: (20, 290)}
@@ -50,17 +50,20 @@ rgb={"VERMELHO": (225, 0, 0), "VERDE": (0, 225, 0), "PRETO": (0, 0, 0), "AZUL": 
 jog1={'vida':10, 'posicao':0, 'pos':posicoes[0], 'cor':'Verde', 'rgb':(0, 255, 170)}
 jog2={'vida':10, 'posicao':0, 'pos':posicoes[0], 'cor':'Rosa', 'rgb':(255, 20, 147)}
 
-jogadores_presos=[0,0] #Lista que guarda a informção se um jogogador está preso
+jogadores_presos=[0,0] #Lista que guarda a informação se um jogogador está preso
 jogadores=[jog1, jog2] #Lista que determina a ordem dos jogadores, modificada no início do jogo
 turno=0 #Variável que garante que jogue um jogador por vez, varia entre 0 e 1
 y=0 #Variável que representa o dado
 
+#Variáveis bool que controlam as ações do usuário, evitando erros, garantindo que o jogo funcione corretamente 
 jogo_iniciado=False
 fim=False
 running=True
 
+#Loop principal do jogo
 while running:
     screen.fill((255,255,255))
+    #Loop para desenhar o tabuleiro coma as informações dos dicionários
     for p, cord in posicoes.items():
         pygame.draw.rect(screen, rgb[cores_tabuleiro[p]], (cord[0], cord[1], 80, 80))
 
@@ -70,70 +73,71 @@ while running:
     screen.blit(font_vida.render(a, True, (0,0,0)), (250, 300))
     screen.blit(font_vida.render(b, True, (0,0,0)), (250, 350))
 
+    #Linha e retângulo desenhados em baixo do tabuleiro para fins estéticos
     pygame.draw.rect(screen, (57, 62, 70), (0, 620, largura, 80))
     pygame.draw.line(screen, (255, 211, 105), (0, 620), (largura, 620), 4)
 
+    #Configuraçoes dos textos
     texto_vida_jog1 = font_vida.render(f'Vida Jogador {jog1["cor"]}: {jog1["vida"]}', True, (255, 211, 105))
     texto_vida_jog2 = font_vida.render(f'Vida Jogador {jog2["cor"]}: {jog2["vida"]}', True, (255, 211, 105))
     texto_dado = font_dado.render(f'DADO: {y}', True, (255, 211, 105))
 
-
+    #Escrevendo os textos de vida e do dado
     screen.blit(texto_vida_jog1, (30, 635))
     screen.blit(texto_vida_jog2, (30, 665))
     screen.blit(texto_dado, (640, 645))
    
+    #Chamando a função para desenhar os jogadores com as informções dos dicionários
     desenhar_peao(screen, jog1['rgb'], jog1['pos'][0], jog1['pos'][1])
     desenhar_peao(screen, jog2['rgb'], jog2['pos'][0], jog2['pos'][1] + 32)
 
+    #Loop interno para verificar os eventos do usuário 
     for eventos in pygame.event.get():
+        #Se clicar no "X" da tela
         if eventos.type == pygame.QUIT:
             running=False
 
+        #Se clicar em alguma tecla 
         if eventos.type == pygame.KEYDOWN:
-
-            if eventos.key == pygame.K_r  and  fim and jogo_iniciado:
-                    jog1['pos'] = posicoes[0]
-                    jog2['pos'] = posicoes[0]
-                    jog1['vida'] = 10
-                    jog2['vida'] = 10
-                    jog1['posicao'] = 0
-                    jog2['posicao'] = 0
-                    jogadores_presos = [0,0]
-                    y=0
-                    x='Pressione espaço'
-                    jogo_iniciado=False
-                    fim=False
-
-            if eventos.key == pygame.K_ESCAPE and fim and jogo_iniciado:
-                running=False
-
+            
+            #Se clicar no espaço e o jogo não tiver começado nem terminado
             if eventos.key == pygame.K_SPACE and not jogo_iniciado and not fim:
+                #Sorteia quem começa primeio, garantido que a soma dos dois sorteados não seja igual
                 s1 = random.randint(1,6) + random.randint(1,6)
                 s2 = random.randint(1,6) + random.randint(1,6) 
                 while s1 == s2:
                     s1 = random.randint(1,6) + random.randint(1,6)
                     s2 = random.randint(1,6) + random.randint(1,6)
+                #Muda a variável de texto para exibir o resultado da soma na tela
                 a=f'Jogador {jog1["cor"]} tirou {s1}'
                 b=f'Jogador {jog2["cor"]} tirou {s2}'    
+                #Muda a ordem da lista jogadores
                 if s1 > s2:
                     jogadores=[jog1, jog2]
                 else:
                     jogadores=[jog2, jog1]
+                #Muda a variável de texto para exibir quem começa primeiro e muda uma das variáveis de controle
                 x=f'Jogador {jogadores[0]["cor"]} começa. Clique em A para continuar'
                 jogo_iniciado=True
 
+            #Se a tecla for "A" e o jogo tiver começado, mas não acabado
             if eventos.key == pygame.K_a and jogo_iniciado and not fim:
+                #Esvazia as variáveis de texto do meio do tabuleiro
                 a = ''
                 b = ''
+
+                #Verifica se há algum jogador preso nesse turno antes de permitir que ele jogue, caso tenha garante que ele perca a vez e jogue na próxima
                 if jogadores_presos[turno] > 0:
                     jogadores_presos[turno] -= 1
                     x=f'Jogador {jogadores[turno]["cor"]} está preso e perdeu a vez!'
                     turno = (turno + 1) % 2
                     continue
                 
+                #Sorteia o dado e atualiza a posição do jogador
                 y = random.randint(1,6)
                 jogadores[turno]['posicao'] += y
 
+                #Garante que o jogador não passe do fim e acaba o jogo caso ele esteja no fim 
                 if jogadores[turno]['posicao'] >= 27:
                     jogadores[turno]['posicao'] = 27
                     x=f'Jogador {jogadores[turno]["cor"]} venceu! Pressione: ESC para sair / R para reiniciar.' 
@@ -179,6 +183,23 @@ while running:
 
                 if not fim:
                     turno = (turno + 1) % 2
+
+            if eventos.key == pygame.K_r  and  fim and jogo_iniciado:
+                    jog1['pos'] = posicoes[0]
+                    jog2['pos'] = posicoes[0]
+                    jog1['vida'] = 10
+                    jog2['vida'] = 10
+                    jog1['posicao'] = 0
+                    jog2['posicao'] = 0
+                    jogadores_presos = [0,0]
+                    y=0
+                    x='Pressione espaço'
+                    jogo_iniciado=False
+                    fim=False
+
+            if eventos.key == pygame.K_ESCAPE and fim and jogo_iniciado:
+                running=False
+
 
     pygame.display.update()
 
