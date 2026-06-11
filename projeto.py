@@ -45,8 +45,8 @@ cores_tabuleiro = {0: "INICIO", 1: "BRANCO", 2: "VERMELHO", 3: "VERDE", 4: "BRAN
     20: "VERMELHO", 21: "VERDE", 22: "BRANCO", 23: "AZUL", 24: "VERMELHO", 25: "AMARELO", 26: "VERDE", 27: "FIM"}
 rgb={"VERMELHO": (225, 0, 0), "VERDE": (0, 225, 0), "PRETO": (0, 0, 0), "AZUL": (0, 0, 225), "AMARELO": (225, 225, 0), "BRANCO": (225, 225, 225), "INICIO": (0,0,0), "FIM": (0,0,0)}
 
-#Dicioários que guardam informações importantes sobre os jogadores
-#As chaves "cor" e "rgd" sã imutávies, usadas ,principalmente, pra se referir ao jogador no texto e para desnhá-lo no tabuleiro, respectivamente
+#Dicionários que guardam informações importantes sobre os jogadores
+#As chaves "cor" e "rgb" são imutáveis, usadas ,principalmente, pra se referir ao jogador no texto e para desenhá-lo no tabuleiro, respectivamente
 jog1={'vida':10, 'posicao':0, 'pos':posicoes[0], 'cor':'Verde', 'rgb':(0, 255, 170)}
 jog2={'vida':10, 'posicao':0, 'pos':posicoes[0], 'cor':'Rosa', 'rgb':(255, 20, 147)}
 
